@@ -1,0 +1,8 @@
+[aws-hosts:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/vagrant/terraform/altschool-aws-key.pem
+
+[aws-hosts]
+3.235.54.20
+44.208.161.115
+54.226.165.46

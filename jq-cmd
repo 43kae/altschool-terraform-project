@@ -1,0 +1,1 @@
+terraform output -json host-inventory | jq -r '.[0, 1, 2]' >> "./ansible/host-inventory"

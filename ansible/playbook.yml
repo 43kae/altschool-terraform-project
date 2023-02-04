@@ -1,0 +1,55 @@
+- name: Setup Server
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Upgrade System
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: set timezone to Africa/Lagos
+      timezone:
+        name: Africa/Lagos
+
+    - name: install prerequisites
+      apt:
+        pkg:
+        - nginx
+        - gnupg
+        - git-all
+        - avahi-daemon
+        - libnss-mdns
+        - net-tools
+        - php8.1-fpm
+    - name: remove the nginx file
+      file:
+        path: /var/www/html/index.nginx-debian.html
+        state: absent
+
+    - name: remove the default nginx file
+      file:
+        path: /etc/nginx/sites-available/default
+        state: absent
+
+    - name: copy the nginx default file to server
+      copy:
+        src: default
+        dest: /etc/nginx/sites-available
+        owner: root
+        group: root
+        mode: 0744
+
+    - name: copy the php file to print hostname to server
+      copy:
+        src: index.php
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: 0744
+
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes

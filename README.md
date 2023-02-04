@@ -1,1 +1,3 @@
 # altschool-terraform-project
+
+Terraform module to create a vpc, subnets, and instances non them, blah blah blah ...
